@@ -3,12 +3,13 @@ import { Text, View, TextInput, Button, ScrollView, FlatList, Image, TouchableOp
 import Modal from 'react-native-modal';
 import R from 'ramda';
 import moment from 'moment';
+import FastTrackTime from './FastTrackTime';
 import styles from '../styles/MainStyles';
 import { getUser } from '../services/projects/index';
 import Images from '../services/images/images';
 
 export default class MainPage extends React.Component {
-    getParam = name => R.path([ 'data', name ], this.props.navigation.getParam(name));
+    getParam = name => R.path([ name ], this.props.navigation.getParam(name));
 
     state = {
         projects: this.getParam('projects'),
@@ -47,6 +48,10 @@ export default class MainPage extends React.Component {
         }));
     };
 
+    openProject = project => this.props.navigation.navigate('ProjectDetails', {
+        project: project,
+    });
+
     renderProject = project => (
         <View style={styles.projectRow} key={project.id}>
             <TouchableOpacity
@@ -57,11 +62,17 @@ export default class MainPage extends React.Component {
                 <Text>{project.name}</Text>
                 <Text>Created: {moment(project.created_on).calendar()}</Text>
             </View>
+            <TouchableOpacity style={styles.rightSection} onPress={() => this.openProject(project)}>
+                <Text style={styles.rightArrow}> > </Text>
+            </TouchableOpacity>
         </View>
     );
 
+    hideModal = () => this.setState(state => ({ ...state, showModal: false, }));
+
     render() {
         console.log(this.state);
+        console.log(this.props);
         const { searchValue, filteredProjects, selectedProject } = this.state;
 
         return (
@@ -91,10 +102,17 @@ export default class MainPage extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-                <Modal style={styles.modal} isVisible={this.state.showModal}>
-                    <View>
-                        <Text>{selectedProject.name}</Text>
-                    </View>
+                <Modal
+                    style={styles.modal}
+                    isVisible={this.state.showModal}
+                    onSwipe={this.hideModal}
+                    swipeDirection="up"
+                >
+                    <FastTrackTime
+                        projectId={selectedProject.id}
+                        projectName={selectedProject.name}
+                        close={this.hideModal}
+                    />
                 </Modal>
             </Fragment>
         );

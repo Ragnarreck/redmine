@@ -12,7 +12,7 @@ export default class IssuesList extends React.Component {
     };
 
     componentDidMount() {
-        getIssues().then(res => this.setIssues(R.path([ 'data', 'issues' ], res))).catch(err => console.log(err));
+        getIssues().then(res => this.setIssues(R.path([ 'issues' ], res))).catch(err => console.log(err));
     }
 
     setIssues = issues => issues && this.setState(state => ({

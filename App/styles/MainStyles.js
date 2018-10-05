@@ -80,8 +80,46 @@ export default {
         left: '50%',
         top: '50%',
         backgroundColor: '#fff',
-        textAlign: 'center',
         borderRadius: 4,
         borderColor: 'rgba(0, 0, 0, 0.1)',
-    }
+    },
+    modalContainer: {
+        marginTop: 10,
+        height: 500,
+        justifyContent: 'flex-start',
+    },
+    modalHeader: {
+        alignItems: 'center',
+        marginTop: 12,
+    },
+    calendarModel: {
+        height: 400,
+        backgroundColor: '#fff',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    closeIcon: {
+        position: 'absolute',
+        right: 0,
+        top: 10,
+        zIndex: 100,
+    },
+    closeIconText: {
+        fontSize: 16,
+    },
+    modalInfo: {
+        marginTop: 25,
+    },
+    itemText: {
+        marginTop: 10,
+        marginBottom: 10
+    },
+    rightSection: {
+        position: 'absolute',
+        right: 20,
+        top: 10 ,
+    },
+    rightArrow: {
+      fontSize: 20,
+    },
 };
